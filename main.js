@@ -694,7 +694,9 @@ const renderPopup = (
         <div class="popup-modal__board__container-li__content__description">${des}</div>
         <p>${day}</p>
         </div>
+        <div style='flex-grow:1; text-align:end'>
         <button onclick="deletePopup(this)"  id='popup-delete'><i class="fas fa-trash-alt"></i></button>
+        </div>
         </li>`;
 
   popupModalData.push(entry);
