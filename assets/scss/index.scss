@@ -1,0 +1,415 @@
+@import "./variable";
+@import "./base";
+
+.container {
+  background-color: $main-bg;
+  width: 100vw;
+  height: 100vh;
+  margin: auto;
+
+  @include flex(center, center);
+}
+
+.main {
+  min-width: 700px;
+  max-width: 800px;
+  width: 80%;
+  margin: auto;
+  position: absolute;
+  height: 90%;
+  box-shadow: $box-shadow;
+  &__screen {
+    @include flex(center, center);
+    background: url(../images/bg.jpg) center;
+    background-size: cover;
+    height: 30%;
+    &__box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      h1 {
+        text-transform: capitalize;
+        color: $txt-white;
+        font-weight: 500;
+        line-height: 4rem;
+      }
+      &__display {
+        @include border(0, 3px, #03b5eb, auto, 5rem);
+        min-width: 10rem;
+        background-color: #fff;
+        color: #03b5eb;
+        text-align: center;
+        line-height: 5rem;
+        font-size: 3rem;
+      }
+    }
+  }
+  &__category {
+    @include flex(center, center);
+    height: 20%;
+    background-color: $second-bg;
+    &__nav {
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      margin-right: 5rem;
+      button {
+        border: 1px solid #03b5eb;
+        background-color: #fff;
+        color: #03b5eb;
+        padding: 0.2rem 0.6rem;
+        border-radius: 1rem;
+        text-transform: capitalize;
+      }
+    }
+    &__selector {
+      @include flex(flex-start, flex-start);
+      width: 35rem;
+      overflow: scroll;
+      cursor: pointer;
+      &__child {
+        &.disable {
+          display: none;
+        }
+        margin: auto;
+        text-align: center;
+        padding: 1rem;
+        &:hover {
+          transform: scale(1.1);
+          transition: all 0.3s ease;
+        }
+        &__img {
+          @include border(50%, 4px, #cf99ee, 5rem, 5rem);
+          @include flex(center, center);
+
+          img {
+            width: 3rem;
+            height: 3rem;
+          }
+        }
+        h1 {
+          text-transform: uppercase;
+          font-size: 1.1rem;
+        }
+      }
+    }
+    &__selector::-webkit-scrollbar {
+      display: none;
+    }
+  }
+  &__dash-board {
+    @include flex(flex-start, space-between);
+    background-color: #fff;
+    margin: auto;
+    height: 50%;
+    padding: 3rem;
+
+    &__income {
+      width: 50%;
+      height: 100%;
+      overflow: scroll;
+
+      &__heading {
+        color: #00a396;
+        display: flex;
+        padding-bottom: 0.5rem;
+
+        &__number {
+          font-size: 1.5rem;
+          line-height: 2.5rem;
+        }
+      }
+
+      &__container {
+        display: flex;
+        position: relative;
+        margin-left: 5px;
+        &__img {
+          img {
+            @include border(5px, 4px, #a4f5ea, 7rem, 7rem);
+            padding: 1rem;
+            margin-right: 0.5rem;
+          }
+        }
+
+        &-description {
+          &__title {
+            font-size: 1.5rem;
+            font-weight: 500;
+            color: #00a396;
+            span {
+              text-transform: capitalize;
+            }
+          }
+          &__number {
+            padding: 0.7rem 0;
+            font-size: 1.3rem;
+            font-weight: 600;
+          }
+        }
+      }
+    }
+    &__income:hover,
+    &__expenses:hover {
+      button#delete {
+        display: block;
+      }
+    }
+    &__income::-webkit-scrollbar {
+      display: none;
+    }
+
+    &__expenses {
+      overflow: scroll;
+      width: 50%;
+      height: 100%;
+
+      &__heading {
+        color: #ad0065;
+        display: flex;
+        padding-bottom: 0.5rem;
+
+        &__number {
+          font-size: 1.5rem;
+          line-height: 2.5rem;
+        }
+      }
+
+      &__container {
+        display: flex;
+        position: relative;
+        margin-left: 5px;
+        &__img {
+          img {
+            @include border(5px, 4px, #ffc1e7, 7rem, 7rem);
+            padding: 1rem;
+            margin-right: 0.5rem;
+          }
+        }
+
+        &-description {
+          &__title {
+            font-size: 1.5rem;
+            font-weight: 500;
+            color: #ad0065;
+            span {
+              text-transform: capitalize;
+            }
+          }
+          &__number {
+            padding: 0.7rem 0;
+            font-size: 1.3rem;
+            font-weight: 600;
+          }
+        }
+      }
+    }
+    &__expenses::-webkit-scrollbar {
+      display: none;
+    }
+  }
+}
+.data-modal {
+  &.active {
+    display: flex;
+  }
+  @include flex(center, center);
+  background-color: rgba(0, 0, 0, 0.2);
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  display: none;
+  &__board {
+    @include border(1rem, 0, #fff, 30rem, 25rem);
+    background: #fff;
+    margin: auto;
+    position: absolute;
+    padding: 2rem;
+    &__title span {
+      text-transform: capitalize;
+    }
+    &__input {
+      border-top: 1px solid #ced4da;
+      padding-top: 1rem;
+      &__amount {
+        width: 49%;
+        height: 2rem;
+      }
+      &__title {
+        width: 50%;
+        height: 2rem;
+      }
+      &__description {
+        width: 100%;
+        height: 7rem;
+        font-family: "Roboto", sans-serif;
+        margin-top: 1.5rem;
+      }
+    }
+    &__button {
+      text-align: end;
+      button {
+        border: none;
+        border-radius: 3px;
+        padding: 0.5rem;
+        margin-left: 0.3rem;
+        color: #fff;
+      }
+      &__cancel {
+        background-color: $gray;
+      }
+      &__confirm {
+        background-color: $green;
+      }
+    }
+  }
+}
+
+.popup-modal {
+  &.active {
+    display: flex;
+  }
+  @include flex(center, center);
+  background-color: rgba(0, 0, 0, 0.2);
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  display: none;
+  &__board {
+    @include border(1rem, 0, #fff, 30rem, auto);
+    border-top: 7px solid #04a4ab;
+    background: #fff;
+    margin: auto;
+    position: absolute;
+    padding: 2rem;
+    text-align: center;
+    &__header {
+      display: flex;
+      justify-content: center;
+      font-size: 1.5rem;
+      font-weight: 600;
+      text-align: center;
+      border-bottom: 1px solid #e5e5e5;
+      padding-bottom: 1.5rem;
+      &__number {
+        @include border(none, 4px, #aefaec, fit-content, 3rem);
+        min-width: 6rem;
+        padding: 0.3rem;
+        opacity: 0.7;
+      }
+      &__title {
+        line-height: 3rem;
+        padding-left: 1rem;
+        opacity: 0.7;
+      }
+    }
+    &__container {
+      position: relative;
+    }
+    &__container-li {
+      padding: 1rem;
+      display: flex;
+      img {
+        width: 5rem;
+      }
+      &__content {
+        padding-left: 1rem;
+        text-align: start;
+        &__title {
+          font-size: 1.6rem;
+          font-weight: 500;
+          opacity: 0.7;
+          span {
+            color: #f50491;
+          }
+        }
+        &__description {
+          padding: 0.5rem 0;
+        }
+        p {
+          color: #009efa;
+          font-style: italic;
+          font-weight: 500;
+        }
+      }
+    }
+    &__button {
+      text-align: end;
+
+      &__prev {
+        background-color: transparent;
+        color: #333;
+        position: absolute;
+        font-size: 2rem;
+        top: 45%;
+        left: 0;
+        opacity: 0.2;
+      }
+      &__next {
+        background-color: transparent;
+        color: #333;
+        position: absolute;
+        font-size: 2rem;
+        top: 45%;
+        right: 0;
+        opacity: 0.2;
+      }
+
+      &__prev:hover,
+      &__next:hover {
+        opacity: 0.5;
+      }
+
+      button[disabled]:hover {
+        opacity: 0.2;
+        cursor: default;
+      }
+
+      &__close {
+        background-color: #17a2b8;
+        color: #fff;
+      }
+
+      button {
+        border: none;
+        padding: 0.7rem;
+        border-radius: 5px;
+      }
+    }
+  }
+}
+#dashboard-container {
+  position: relative;
+  cursor: pointer;
+}
+#delete {
+  width: 2rem;
+  height: 2rem;
+  background: transparent;
+  outline: none;
+  border: none;
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  color: red;
+  font-size: 1.5rem;
+  display: none;
+  opacity: 0.6;
+}
+
+#popup-delete {
+  width: 2rem;
+  height: 2rem;
+  background: transparent;
+  outline: none;
+  border: none;
+  color: red;
+  font-size: 1.5rem;
+  text-align: end;
+  line-height: 5rem;
+  padding-left: 3.5rem;
+
+  opacity: 0.6;
+}

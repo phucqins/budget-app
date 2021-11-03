@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script
+      src="https://kit.fontawesome.com/881d6272bf.js"
+      crossorigin="anonymous"
+    ></script>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./assets/css/index.css" />
+    <title>Budget App</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="main">
+        <div class="main__screen">
+          <div class="main__screen__box">
+            <h1>your balance</h1>
+            <div class="main__screen__box__display">$0</div>
+          </div>
+        </div>
+
+        <div class="main__category">
+          <div class="main__category__nav">
+            <h1>Category</h1>
+            <div class="main__category__nav__container">
+              <button id="prev-button">previous</button>
+              <button id="next-button">next</button>
+            </div>
+          </div>
+          <div class="main__category__selector">
+            <div class="main__category__selector__child">
+              <div class="main__category__selector__child__img">
+                <img src="./assets/images/salary.png" alt="" />
+              </div>
+              <h1>salary</h1>
+            </div>
+            <div class="main__category__selector__child">
+              <div class="main__category__selector__child__img">
+                <img src="./assets/images/cooking.png" alt="" />
+              </div>
+              <h1>cooking</h1>
+            </div>
+            <div class="main__category__selector__child">
+              <div class="main__category__selector__child__img">
+                <img src="./assets/images/friend.png" alt="" />
+              </div>
+              <h1>friend</h1>
+            </div>
+            <div class="main__category__selector__child">
+              <div class="main__category__selector__child__img">
+                <img src="./assets/images/gift.png" alt="" />
+              </div>
+              <h1>gift</h1>
+            </div>
+            <div class="main__category__selector__child">
+              <div class="main__category__selector__child__img">
+                <img src="./assets/images/shopping.png" alt="" />
+              </div>
+              <h1>shopping</h1>
+            </div>
+            <div class="main__category__selector__child">
+              <div class="main__category__selector__child__img">
+                <img src="./assets/images/invoice.png" alt="" />
+              </div>
+              <h1>invoice</h1>
+            </div>
+            <div class="main__category__selector__child">
+              <div class="main__category__selector__child__img">
+                <img src="./assets/images/other.png" alt="" />
+              </div>
+              <h1>other</h1>
+            </div>
+          </div>
+        </div>
+
+        <div class="main__dash-board">
+          <div class="main__dash-board__income">
+            <div class="main__dash-board__income__heading">
+              <h1>Income &nbsp</h1>
+              <div class="main__dash-board__income__heading__number"></div>
+            </div>
+
+            <ul id="income" class="list"></ul>
+          </div>
+          <div class="main__dash-board__expenses">
+            <div class="main__dash-board__expenses__heading">
+              <h1>Expenses &nbsp</h1>
+              <div class="main__dash-board__expenses__heading__number"></div>
+            </div>
+
+            <ul id="expense" class="list"></ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="data-modal">
+      <div class="data-modal__board">
+        <h1 class="data-modal__board__title"></h1>
+        <div class="data-modal__board__input">
+          <input
+            type="number"
+            class="data-modal__board__input__amount"
+            placeholder="Amount"
+          />
+          <input
+            type="text"
+            class="data-modal__board__input__title"
+            placeholder="Title"
+          />
+          <textarea
+            name="description"
+            class="data-modal__board__input__description"
+            placeholder="Description"
+          ></textarea>
+          <h3 class="mg-1">Choose Type</h3>
+          <label>
+            <div class="radio-input__custom"></div>
+            <input
+              class="mg-1"
+              type="radio"
+              name="radio-button"
+              value="income"
+              checked
+            />
+            <span>Is this your income ?</span> </label
+          ><br />
+          <label>
+            <div class="radio-input__custom"></div>
+            <input type="radio" name="radio-button" value="expenses" />
+            <span>Or you pay for this ?</span>
+          </label>
+        </div>
+
+        <div class="data-modal__board__button">
+          <button class="data-modal__board__button__cancel">Cancel</button>
+          <button class="data-modal__board__button__confirm">Confirm</button>
+        </div>
+      </div>
+    </div>
+    <div class="popup-modal">
+      <div class="popup-modal__board">
+        <div class="popup-modal__board__header">
+          <div class="popup-modal__board__header__number"></div>
+          <div class="popup-modal__board__header__title"></div>
+        </div>
+        <ul class="popup-modal__board__container"></ul>
+        <div class="popup-modal__board__button">
+          <button class="popup-modal__board__button__close">Close!</button>
+          <button class="popup-modal__board__button__next">
+            <i class="fas fa-chevron-right"></i>
+          </button>
+          <button class="popup-modal__board__button__prev">
+            <i class="fas fa-chevron-left"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script src="./main.js"></script>
+</html>

@@ -1,0 +1,84 @@
+@import url("https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@100;300;400;500;700;800;900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+
+html {
+  font-size: 13px;
+}
+
+body {
+  font-family: "Roboto", sans-serif;
+}
+
+ul {
+  list-style-type: none;
+}
+
+a {
+  text-decoration: none;
+  color: unset;
+}
+
+textarea:focus,
+input:focus {
+  outline: none;
+}
+
+textarea,
+input {
+  border: 1px solid #ced4da;
+  border-radius: 3px;
+  padding-left: 5px;
+}
+
+h1 {
+  font-weight: 500;
+}
+
+.radio-input__custom {
+  width: 13px;
+  height: 13px;
+  position: absolute;
+  border-radius: 50%;
+  background-color: white;
+  border: 1px solid #767676;
+  z-index: 1;
+}
+
+.mg-1 {
+  margin-bottom: 0.5rem;
+}
+
+input[type="radio"]:checked:after {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  top: 3px;
+  z-index: 3;
+  left: 3px;
+  position: absolute;
+  background-color: #767676;
+  content: "";
+  display: inline-block;
+  visibility: visible;
+  border: 1px solid #767676;
+}
+label {
+  position: relative;
+}
+
+.example::-webkit-scrollbar {
+  display: none;
+}
+
+input[type="radio"],
+label,
+button {
+  cursor: pointer;
+}
