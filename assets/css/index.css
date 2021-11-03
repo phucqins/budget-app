@@ -550,6 +550,9 @@ button {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
 }
 
 .popup-modal__board__container-li img {
@@ -650,12 +653,10 @@ button {
   outline: none;
   border: none;
   color: red;
-  -webkit-box-flex: 1;
-      -ms-flex-positive: 1;
-          flex-grow: 1;
   font-size: 1.5rem;
   text-align: center;
-  line-height: 5rem;
+  height: 1rem;
+  margin-top: 1.7rem;
   opacity: 0.6;
 }
 /*# sourceMappingURL=index.css.map */

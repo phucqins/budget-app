@@ -311,6 +311,8 @@
     &__container-li {
       padding: 1rem;
       display: flex;
+      justify-content: space-between;
+
       img {
         width: 5rem;
       }
@@ -400,14 +402,13 @@
 }
 
 #popup-delete {
-  
   background: transparent;
   outline: none;
   border: none;
   color: red;
-  flex-grow: 1;
   font-size: 1.5rem;
   text-align: center;
-  line-height: 5rem;
+  height: 1rem;
+  margin-top: 1.7rem;
   opacity: 0.6;
 }

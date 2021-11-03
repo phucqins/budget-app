@@ -684,6 +684,7 @@ const renderPopup = (
   popupModalData
 ) => {
   const entry = `<li value='${id}' title='${title}' type='${type}' category='${category}' amount='${amount}' class="popup-modal__board__container-li ${type}">
+        <div style='display:flex'>
         <div>
         <img src="./assets/images/calendar.png" />  
         </div>
@@ -694,9 +695,8 @@ const renderPopup = (
         <div class="popup-modal__board__container-li__content__description">${des}</div>
         <p>${day}</p>
         </div>
-        <div style='flex-grow:1; text-align:end'>
-        <button onclick="deletePopup(this)"  id='popup-delete'><i class="fas fa-trash-alt"></i></button>
         </div>
+        <button onclick="deletePopup(this)" id='popup-delete'><i class="fas fa-trash-alt"></i></button>
         </li>`;
 
   popupModalData.push(entry);
