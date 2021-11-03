@@ -647,15 +647,16 @@ button {
 
 #popup-delete {
   width: 2rem;
-  height: 2rem;
   background: transparent;
   outline: none;
   border: none;
   color: red;
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
   font-size: 1.5rem;
-  text-align: end;
+  text-align: center;
   line-height: 5rem;
-  padding-left: 15%;
   opacity: 0.6;
 }
 /*# sourceMappingURL=index.css.map */

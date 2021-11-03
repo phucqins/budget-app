@@ -401,14 +401,13 @@
 
 #popup-delete {
   width: 2rem;
-  height: 2rem;
   background: transparent;
   outline: none;
   border: none;
   color: red;
+  flex-grow: 1;
   font-size: 1.5rem;
-  text-align: end;
+  text-align: center;
   line-height: 5rem;
-  padding-left: 15%;
   opacity: 0.6;
 }
