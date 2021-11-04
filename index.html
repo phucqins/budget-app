@@ -30,45 +30,47 @@
             </div>
           </div>
           <div class="main__category__selector">
-            <div class="main__category__selector__child">
-              <div class="main__category__selector__child__img">
-                <img src="./assets/images/salary.png" alt="" />
+            <div id="category-selector">
+              <div class="main__category__selector__child">
+                <div class="main__category__selector__child__img">
+                  <img src="./assets/images/salary.png" alt="" />
+                </div>
+                <h1>salary</h1>
               </div>
-              <h1>salary</h1>
-            </div>
-            <div class="main__category__selector__child">
-              <div class="main__category__selector__child__img">
-                <img src="./assets/images/cooking.png" alt="" />
+              <div class="main__category__selector__child">
+                <div class="main__category__selector__child__img">
+                  <img src="./assets/images/cooking.png" alt="" />
+                </div>
+                <h1>cooking</h1>
               </div>
-              <h1>cooking</h1>
-            </div>
-            <div class="main__category__selector__child">
-              <div class="main__category__selector__child__img">
-                <img src="./assets/images/friend.png" alt="" />
+              <div class="main__category__selector__child">
+                <div class="main__category__selector__child__img">
+                  <img src="./assets/images/friend.png" alt="" />
+                </div>
+                <h1>friend</h1>
               </div>
-              <h1>friend</h1>
-            </div>
-            <div class="main__category__selector__child">
-              <div class="main__category__selector__child__img">
-                <img src="./assets/images/gift.png" alt="" />
+              <div class="main__category__selector__child">
+                <div class="main__category__selector__child__img">
+                  <img src="./assets/images/gift.png" alt="" />
+                </div>
+                <h1>gift</h1>
               </div>
-              <h1>gift</h1>
-            </div>
-            <div class="main__category__selector__child">
-              <div class="main__category__selector__child__img">
-                <img src="./assets/images/shopping.png" alt="" />
+              <div class="main__category__selector__child">
+                <div class="main__category__selector__child__img">
+                  <img src="./assets/images/shopping.png" alt="" />
+                </div>
+                <h1>shopping</h1>
               </div>
-              <h1>shopping</h1>
-            </div>
-            <div class="main__category__selector__child">
-              <div class="main__category__selector__child__img">
-                <img src="./assets/images/invoice.png" alt="" />
+              <div class="main__category__selector__child">
+                <div class="main__category__selector__child__img">
+                  <img src="./assets/images/invoice.png" alt="" />
+                </div>
+                <h1>invoice</h1>
               </div>
-              <h1>invoice</h1>
             </div>
-            <div class="main__category__selector__child">
+            <div id="add-category" class="main__category__selector__child">
               <div class="main__category__selector__child__img">
-                <img src="./assets/images/other.png" alt="" />
+                <i class="fas fa-plus"></i>
               </div>
               <h1>other</h1>
             </div>
@@ -139,6 +141,25 @@
         </div>
       </div>
     </div>
+
+    <div class="category-modal">
+      <div class="category-modal__board">
+        <h1 class="category-modal__board__title">ADD CATEGORY</h1>
+        <div class="category-modal__board__input">
+          <input
+            type="text"
+            class="category-modal__board__input__title"
+            placeholder="Category Title"
+          />
+        </div>
+
+        <div class="category-modal__board__button">
+          <button class="category-modal__board__button__cancel">Cancel</button>
+          <button class="category-modal__board__button__confirm">Create</button>
+        </div>
+      </div>
+    </div>
+
     <div class="popup-modal">
       <div class="popup-modal__board">
         <div class="popup-modal__board__header">

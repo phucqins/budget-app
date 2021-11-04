@@ -81,6 +81,8 @@
         &__img {
           @include border(50%, 4px, #cf99ee, 5rem, 5rem);
           @include flex(center, center);
+          font-size: 2rem;
+          color: rgba(0, 0, 0, 0.5);
 
           img {
             width: 3rem;
@@ -382,6 +384,56 @@
     }
   }
 }
+
+.category-modal {
+  &.active {
+    display: flex;
+  }
+  @include flex(center, center);
+  background-color: rgba(0, 0, 0, 0.2);
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  display: none;
+  &__board {
+    @include border(1rem, 0, #fff, 30rem, 15rem);
+    background: #fff;
+    margin: auto;
+    position: absolute;
+    padding: 2rem;
+    &__title span {
+      text-transform: capitalize;
+    }
+    &__input {
+      border-top: 1px solid #ced4da;
+      padding-top: 1rem;
+      padding-bottom: 2rem;
+
+      &__title {
+        width: 100%;
+        height: 2rem;
+      }
+    }
+    &__button {
+      text-align: end;
+      button {
+        border: none;
+        border-radius: 3px;
+        padding: 0.5rem;
+        margin-left: 0.3rem;
+        color: #fff;
+      }
+      &__cancel {
+        background-color: $gray;
+      }
+      &__confirm {
+        background-color: $green;
+      }
+    }
+  }
+}
+
 #dashboard-container {
   position: relative;
   cursor: pointer;
@@ -411,4 +463,8 @@
   height: 1rem;
   margin-top: 1.7rem;
   opacity: 0.6;
+}
+
+#category-selector {
+  display: flex;
 }

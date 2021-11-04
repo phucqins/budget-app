@@ -8,6 +8,9 @@ const prevBtn = $("#prev-button");
 const cancelBtn = $(".data-modal__board__button__cancel");
 const submitBtn = $(".data-modal__board__button__confirm");
 const popupCloseBtn = $(".popup-modal__board__button__close");
+const categoryCancelBtn = $(".category-modal__board__button__cancel");
+const categoryCreateBtn = $(".category-modal__board__button__confirm");
+
 const selectors = $$(".main__category__selector__child");
 const dataModal = $(".data-modal");
 const popupModal = $(".popup-modal");
@@ -21,10 +24,15 @@ const incomeBoard = $(".main__dash-board__income");
 const expenseBoard = $(".main__dash-board__expenses");
 const modalBoardTitle = $(".data-modal__board__title");
 const popUpBoard = $(".popup-modal__board__container");
+const categoryTitleInput = $(".category-modal__board__input__title");
 
 const incomeBoardTotal = $(".main__dash-board__income__heading__number");
 const expenseBoardTotal = $(".main__dash-board__expenses__heading__number");
 const balanceDisplay = $(".main__screen__box__display");
+
+const addCategory = $("#add-category");
+const addCategoryModal = $(".category-modal");
+const categoryContainer = $("#category-selector");
 
 const popUpNext = $(".popup-modal__board__button__next");
 const popUpPrev = $(".popup-modal__board__button__prev");
@@ -35,12 +43,59 @@ let balance = 0;
 
 //handle selectors
 
-selectors.forEach((e, i) => {
-  e.addEventListener("click", () => {
-    dataModal.classList.add("active");
-    modalBoardTitle.innerHTML = `Create new: <span>${selectorHeadings[i].innerHTML}</span>`;
+Array.from(selectors)
+  .slice(0, selectors.length - 1)
+  .forEach((e, i) => {
+    e.addEventListener("click", () => {
+      dataModal.classList.add("active");
+      modalBoardTitle.innerHTML = `Create new: <span>${selectorHeadings[i].innerHTML}</span>`;
+    });
   });
+
+addCategory.addEventListener("click", () => {
+  addCategoryModal.classList.add("active");
 });
+
+categoryCancelBtn.addEventListener("click", () => {
+  handleCategoryClose();
+});
+
+const handleCategoryClose = () => {
+  addCategoryModal.classList.remove("active");
+};
+
+categoryCreateBtn.addEventListener("click", () => {
+  handleCreateCategory();
+});
+
+const handleCreateCategory = () => {
+  const title = categoryTitleInput.value;
+  renderCategory(title, categoryContainer);
+  console.log("sss");
+  const newSelector = $$(".main__category__selector__child");
+  const newSelectorHeadings = $$(".main__category__selector__child h1");
+  Array.from(newSelector)
+    .slice(0, newSelector.length - 1)
+    .forEach((e, i) => {
+      e.addEventListener("click", () => {
+        dataModal.classList.add("active");
+        modalBoardTitle.innerHTML = `Create new: <span>${newSelectorHeadings[i].innerHTML}</span>`;
+      });
+    });
+  scrollHandle("right");
+  handleCategoryClose();
+};
+
+const renderCategory = (title, element) => {
+  const newCategory = `<div class="main__category__selector__child">
+  <div class="main__category__selector__child__img">
+   <img src="./assets/images/other.png" alt="" />
+ </div>
+ <h1>${title}</h1>
+ </div>`;
+
+  element.insertAdjacentHTML("beforeend", newCategory);
+};
 
 //handle selectors end
 
@@ -179,70 +234,17 @@ const handleSubmit = () => {
       );
     }
 
+    ENTRY__DATA.push(income);
     let text = [];
     dashboardIncomeTitleText.forEach((e) => text.push(e.innerHTML));
     let index = text.findIndex((e) => e == modalBoardTitleText);
 
-    ENTRY__DATA.push(income);
-    const salary = ENTRY__DATA.filter(
-      (e) => e.category == "salary" && e.type == "income"
-    );
-    const shopping = ENTRY__DATA.filter(
-      (e) => e.category == "shopping" && e.type == "income"
-    );
-    const other = ENTRY__DATA.filter(
-      (e) => e.category == "other" && e.type == "income"
-    );
-    const cooking = ENTRY__DATA.filter(
-      (e) => e.category == "cooking" && e.type == "income"
-    );
-    const friend = ENTRY__DATA.filter(
-      (e) => e.category == "friend" && e.type == "income"
-    );
-    const invoice = ENTRY__DATA.filter(
-      (e) => e.category == "invoice" && e.type == "income"
-    );
-    const gift = ENTRY__DATA.filter(
-      (e) => e.category == "gift" && e.type == "income"
-    );
+    const newData = ENTRY__DATA.filter((e) => {
+      return e.category == modalBoardTitleText && e.type == inputRadioChecked;
+    });
 
-    const salaryAmount = caculateAmount(salary);
-    const shoppingAmount = caculateAmount(shopping);
-    const otherAmount = caculateAmount(other);
-    const cookingAmount = caculateAmount(cooking);
-    const friendAmount = caculateAmount(friend);
-    const invoiceAmount = caculateAmount(invoice);
-    const giftAmount = caculateAmount(gift);
     if (dashboardIncomeNumber[index]) {
-      switch (modalBoardTitleText) {
-        case "salary":
-          dashboardIncomeNumber[index].innerHTML = `$ ${salaryAmount}`;
-          break;
-        case "shopping":
-          dashboardIncomeNumber[index].innerHTML = `$ ${shoppingAmount}`;
-
-          break;
-        case "other":
-          dashboardIncomeNumber[index].innerHTML = `$ ${otherAmount}`;
-
-          break;
-        case "cooking":
-          dashboardIncomeNumber[index].innerHTML = `$ ${cookingAmount}`;
-
-          break;
-        case "friend":
-          dashboardIncomeNumber[index].innerHTML = `$ ${friendAmount}`;
-
-          break;
-        case "invoice":
-          dashboardIncomeNumber[index].innerHTML = `$ ${invoiceAmount}`;
-
-          break;
-        case "gift":
-          dashboardIncomeNumber[index].innerHTML = `$ ${giftAmount}`;
-
-          break;
-      }
+      dashboardIncomeNumber[index].innerHTML = `$ ${caculateAmount(newData)}`;
     }
   } else if (inputRadioChecked === "expenses") {
     let expense = {
@@ -277,64 +279,14 @@ const handleSubmit = () => {
     dashboardExpensesTitleText.forEach((e) => text.push(e.innerHTML));
     let index = text.findIndex((e) => e == modalBoardTitleText);
 
-    const salary = ENTRY__DATA.filter(
-      (e) => e.category == "salary" && e.type == "expenses"
-    );
-    const shopping = ENTRY__DATA.filter(
-      (e) => e.category == "shopping" && e.type == "expenses"
-    );
-    const other = ENTRY__DATA.filter(
-      (e) => e.category == "other" && e.type == "expenses"
-    );
-    const cooking = ENTRY__DATA.filter(
-      (e) => e.category == "cooking" && e.type == "expenses"
-    );
-    const friend = ENTRY__DATA.filter(
-      (e) => e.category == "friend" && e.type == "expenses"
-    );
-    const invoice = ENTRY__DATA.filter(
-      (e) => e.category == "invoice" && e.type == "expenses"
-    );
-    const gift = ENTRY__DATA.filter(
-      (e) => e.category == "gift" && e.type == "expenses"
-    );
-    const salaryAmount = caculateAmount(salary);
-    const shoppingAmount = caculateAmount(shopping);
-    const otherAmount = caculateAmount(other);
-    const cookingAmount = caculateAmount(cooking);
-    const friendAmount = caculateAmount(friend);
-    const invoiceAmount = caculateAmount(invoice);
-    const giftAmount = caculateAmount(gift);
+    const newData = ENTRY__DATA.filter((e) => {
+      return e.category == modalBoardTitleText && e.type == inputRadioChecked;
+    });
+
     if (dashboardExpensesNumber[index]) {
-      switch (modalBoardTitleText) {
-        case "salary":
-          dashboardExpensesNumber[index].innerHTML = `-$ ${salaryAmount}`;
-          break;
-        case "shopping":
-          dashboardExpensesNumber[index].innerHTML = `-$ ${shoppingAmount}`;
-
-          break;
-        case "other":
-          dashboardExpensesNumber[index].innerHTML = `-$ ${otherAmount}`;
-
-          break;
-        case "cooking":
-          dashboardExpensesNumber[index].innerHTML = `-$ ${cookingAmount}`;
-
-          break;
-        case "friend":
-          dashboardExpensesNumber[index].innerHTML = `-$ ${friendAmount}`;
-
-          break;
-        case "invoice":
-          dashboardExpensesNumber[index].innerHTML = `-$ ${invoiceAmount}`;
-
-          break;
-        case "gift":
-          dashboardExpensesNumber[index].innerHTML = `-$ ${giftAmount}`;
-
-          break;
-      }
+      dashboardExpensesNumber[index].innerHTML = `-$ ${caculateAmount(
+        newData
+      )}`;
     }
   }
 
@@ -347,138 +299,85 @@ const handleSubmit = () => {
   if (
     (popupTitle, popupNumber, dashBoards, dashBoardTitles, dashBoardNumbers)
   ) {
-    dashBoards.forEach((e, index) => {
-      e.addEventListener("click", () => {
-        openPopup();
-        const popupModalData = [];
-        let page = 0;
-        const salaryIncome = ENTRY__DATA.filter(
-          (e) => e.category == "salary" && e.type == "income"
-        );
-        const shoppingIncome = ENTRY__DATA.filter(
-          (e) => e.category == "shopping" && e.type == "income"
-        );
-        const otherIncome = ENTRY__DATA.filter(
-          (e) => e.category == "other" && e.type == "income"
-        );
-        const cookingIncome = ENTRY__DATA.filter(
-          (e) => e.category == "cooking" && e.type == "income"
-        );
-        const friendIncome = ENTRY__DATA.filter(
-          (e) => e.category == "friend" && e.type == "income"
-        );
-        const invoiceIncome = ENTRY__DATA.filter(
-          (e) => e.category == "invoice" && e.type == "income"
-        );
-        const giftIncome = ENTRY__DATA.filter(
-          (e) => e.category == "gift" && e.type == "income"
-        );
-        const salaryExpenses = ENTRY__DATA.filter(
-          (e) => e.category == "salary" && e.type == "expenses"
-        );
-        const shoppingExpenses = ENTRY__DATA.filter(
-          (e) => e.category == "shopping" && e.type == "expenses"
-        );
-        const otherExpenses = ENTRY__DATA.filter(
-          (e) => e.category == "other" && e.type == "expenses"
-        );
-        const cookingExpenses = ENTRY__DATA.filter(
-          (e) => e.category == "cooking" && e.type == "expenses"
-        );
-        const friendExpenses = ENTRY__DATA.filter(
-          (e) => e.category == "friend" && e.type == "expenses"
-        );
-        const invoiceExpenses = ENTRY__DATA.filter(
-          (e) => e.category == "invoice" && e.type == "expenses"
-        );
-        const giftExpenses = ENTRY__DATA.filter(
-          (e) => e.category == "gift" && e.type == "expenses"
-        );
-        const data = [
-          salaryIncome,
-          shoppingIncome,
-          otherIncome,
-          cookingIncome,
-          friendIncome,
-          invoiceIncome,
-          giftIncome,
-          salaryExpenses,
-          shoppingExpenses,
-          otherExpenses,
-          cookingExpenses,
-          friendExpenses,
-          invoiceExpenses,
-          giftExpenses,
-        ];
-        popupTitle.innerHTML = `${dashBoardTitles[index].innerHTML}`;
-        popupNumber.innerHTML = `${dashBoardNumbers[index].innerHTML}`;
-        clearElement([popUpBoard]);
-        renderPopupContainer(popupTitle.innerHTML, data, popupModalData);
-        for (let i = 0; i < page + 3; i++) {
-          const position = "beforeend";
-          if (i < popupModalData.length) {
-            popUpBoard.insertAdjacentHTML(position, popupModalData[i]);
-          }
-        }
+    Array.from(dashBoards).forEach((e, index) => {
+      e.addEventListener(
+        "click",
+        (e) => {
+          openPopup();
+          const popupModalData = [];
+          let page = 0;
+          renderPopupBoard(e, popupModalData);
 
-        popUpNext.disabled = true;
-        popUpPrev.disabled = true;
-
-        if (popupModalData.length > 3) {
-          popUpNext.disabled = false;
-        }
-
-        popUpNext.addEventListener("click", () => {
-          let maxPage = Math.ceil(popupModalData.length / 3) * 3;
-          if (popupModalData.length % 3 == 0) {
-            page == popupModalData.length - 3
-              ? (page = popupModalData.length - 3)
-              : (page += 3);
-            popUpBoard.innerHTML = "";
-            for (let i = page; i < page + 3; i++) {
-              const position = "beforeend";
-              if (
-                i < popupModalData.length &&
-                typeof popupModalData[i] == "string"
-              ) {
-                popUpBoard.insertAdjacentHTML(position, popupModalData[i]);
-              }
-            }
-
-            if (page == popupModalData.length - 3) {
-              popUpNext.disabled = true;
-            }
-          } else {
-            page == maxPage - 3 ? (page = maxPage - 3) : (page += 3);
-            popUpBoard.innerHTML = "";
-            for (let i = page; i < page + 3; i++) {
-              const position = "beforeend";
-              if (i < maxPage && typeof popupModalData[i] == "string") {
-                popUpBoard.insertAdjacentHTML(position, popupModalData[i]);
-              }
-            }
-            if (page == maxPage - 3 || page <= 3) {
-              popUpNext.disabled = true;
-            }
-          }
-          popUpPrev.disabled = false;
-        });
-        popUpPrev.addEventListener("click", () => {
-          popUpNext.disabled = false;
-          page == 0 ? (page = 0) : (page -= 3);
-          popUpBoard.innerHTML = "";
-          for (let i = page; i < page + 3; i++) {
+          popupTitle.innerHTML = `${dashBoardTitles[index].innerHTML}`;
+          popupNumber.innerHTML = `${dashBoardNumbers[index].innerHTML}`;
+          clearElement([popUpBoard]);
+          for (let i = 0; i < page + 3; i++) {
             const position = "beforeend";
-            if (typeof popupModalData[i] == "string") {
+            if (i < popupModalData.length) {
               popUpBoard.insertAdjacentHTML(position, popupModalData[i]);
             }
           }
 
-          if (page == 0) {
-            popUpPrev.disabled = true;
+          popUpNext.disabled = true;
+          popUpPrev.disabled = true;
+
+          if (popupModalData.length > 3) {
+            popUpNext.disabled = false;
           }
-        });
-      });
+
+          popUpNext.addEventListener("click", () => {
+            let maxPage = Math.ceil(popupModalData.length / 3) * 3;
+            if (popupModalData.length % 3 == 0) {
+              page == popupModalData.length - 3
+                ? (page = popupModalData.length - 3)
+                : (page += 3);
+              popUpBoard.innerHTML = "";
+              for (let i = page; i < page + 3; i++) {
+                const position = "beforeend";
+                if (
+                  i < popupModalData.length &&
+                  typeof popupModalData[i] == "string"
+                ) {
+                  popUpBoard.insertAdjacentHTML(position, popupModalData[i]);
+                }
+              }
+
+              if (page == popupModalData.length - 3) {
+                popUpNext.disabled = true;
+              }
+            } else {
+              page == maxPage - 3 ? (page = maxPage - 3) : (page += 3);
+              popUpBoard.innerHTML = "";
+              for (let i = page; i < page + 3; i++) {
+                const position = "beforeend";
+                if (i < maxPage && typeof popupModalData[i] == "string") {
+                  popUpBoard.insertAdjacentHTML(position, popupModalData[i]);
+                }
+              }
+              if (page == maxPage - 3 || page <= 3) {
+                popUpNext.disabled = true;
+              }
+            }
+            popUpPrev.disabled = false;
+          });
+          popUpPrev.addEventListener("click", () => {
+            popUpNext.disabled = false;
+            page == 0 ? (page = 0) : (page -= 3);
+            popUpBoard.innerHTML = "";
+            for (let i = page; i < page + 3; i++) {
+              const position = "beforeend";
+              if (typeof popupModalData[i] == "string") {
+                popUpBoard.insertAdjacentHTML(position, popupModalData[i]);
+              }
+            }
+
+            if (page == 0) {
+              popUpPrev.disabled = true;
+            }
+          });
+        },
+        false
+      );
     });
   }
 
@@ -487,190 +386,24 @@ const handleSubmit = () => {
   handleCancel();
 };
 
-const renderPopupContainer = (dashBoardTitle, data, popupModalData) => {
-  if (dashBoardTitle.includes("<span>salary</span> Income")) {
-    data[0].forEach((e, i) => {
-      renderPopup(
-        e.type,
-        e.title,
-        e.des,
-        e.category,
-        e.day,
-        e.amount,
-        e.id,
-        popupModalData
-      );
-    });
-  } else if (dashBoardTitle.includes("<span>shopping</span> Income")) {
-    data[1].forEach((e, i) => {
-      renderPopup(
-        e.type,
-        e.title,
-        e.des,
-        e.category,
-        e.day,
-        e.amount,
-        e.id,
-        popupModalData
-      );
-    });
-  } else if (dashBoardTitle.includes("<span>other</span> Income")) {
-    data[2].forEach((e, i) => {
-      renderPopup(
-        e.type,
-        e.title,
-        e.des,
-        e.category,
-        e.day,
-        e.amount,
-        e.id,
-        popupModalData
-      );
-    });
-  } else if (dashBoardTitle.includes("<span>cooking</span> Income")) {
-    data[3].forEach((e, i) => {
-      renderPopup(
-        e.type,
-        e.title,
-        e.des,
-        e.category,
-        e.day,
-        e.amount,
-        e.id,
-        popupModalData
-      );
-    });
-  } else if (dashBoardTitle.includes("<span>friend</span> Income")) {
-    data[4].forEach((e, i) => {
-      renderPopup(
-        e.type,
-        e.title,
-        e.des,
-        e.category,
-        e.day,
-        e.amount,
-        e.id,
-        popupModalData
-      );
-    });
-  } else if (dashBoardTitle.includes("<span>invoice</span> Income")) {
-    data[5].forEach((e, i) => {
-      renderPopup(
-        e.type,
-        e.title,
-        e.des,
-        e.category,
-        e.day,
-        e.amount,
-        e.id,
-        popupModalData
-      );
-    });
-  } else if (dashBoardTitle.includes("<span>gift</span> Income")) {
-    data[6].forEach((e, i) => {
-      renderPopup(
-        e.type,
-        e.title,
-        e.des,
-        e.category,
-        e.day,
-        e.amount,
-        e.id,
-        popupModalData
-      );
-    });
-  } else if (dashBoardTitle.includes("<span>salary</span> Expenses")) {
-    data[7].forEach((e, i) => {
-      renderPopup(
-        e.type,
-        e.title,
-        e.des,
-        e.category,
-        e.day,
-        e.amount,
-        e.id,
-        popupModalData
-      );
-    });
-  } else if (dashBoardTitle.includes("<span>shopping</span> Expenses")) {
-    data[8].forEach((e, i) => {
-      renderPopup(
-        e.type,
-        e.title,
-        e.des,
-        e.category,
-        e.day,
-        e.amount,
-        e.id,
-        popupModalData
-      );
-    });
-  } else if (dashBoardTitle.includes("<span>other</span> Expenses")) {
-    data[9].forEach((e, i) => {
-      renderPopup(
-        e.type,
-        e.title,
-        e.des,
-        e.category,
-        e.day,
-        e.amount,
-        e.id,
-        popupModalData
-      );
-    });
-  } else if (dashBoardTitle.includes("<span>cooking</span> Expenses")) {
-    data[10].forEach((e, i) => {
-      renderPopup(
-        e.type,
-        e.title,
-        e.des,
-        e.category,
-        e.day,
-        e.amount,
-        e.id,
-        popupModalData
-      );
-    });
-  } else if (dashBoardTitle.includes("<span>friend</span> Expenses")) {
-    data[11].forEach((e, i) => {
-      renderPopup(
-        e.type,
-        e.title,
-        e.des,
-        e.category,
-        e.day,
-        e.amount,
-        e.id,
-        popupModalData
-      );
-    });
-  } else if (dashBoardTitle.includes("<span>invoice</span> Expenses")) {
-    data[12].forEach((e, i) => {
-      renderPopup(
-        e.type,
-        e.title,
-        e.des,
-        e.category,
-        e.day,
-        e.amount,
-        e.id,
-        popupModalData
-      );
-    });
-  } else {
-    data[13].forEach((e, i) => {
-      renderPopup(
-        e.type,
-        e.title,
-        e.des,
-        e.category,
-        e.day,
-        e.amount,
-        e.id,
-        popupModalData
-      );
-    });
-  }
+const renderPopupBoard = (e, popupModalData) => {
+  const category = e.target.parentNode.getAttribute("category");
+  const type = e.target.parentNode.getAttribute("type");
+  const newData = ENTRY__DATA.filter((e) => {
+    return e.category == category && e.type == type;
+  });
+  newData.forEach((e) => {
+    renderPopup(
+      e.type,
+      e.title,
+      e.des,
+      e.category,
+      e.day,
+      e.amount,
+      e.id,
+      popupModalData
+    );
+  });
 };
 
 const renderPopup = (
@@ -710,8 +443,6 @@ const caculateAmount = (arr) => {
   return sum;
 };
 
-//   renderPopupContainer(popupTitle.innerHTML, salaryIncome);
-
 const renderNewDashBoard = (
   category,
   id,
@@ -728,21 +459,21 @@ const renderNewDashBoard = (
     <div  id="dash-board" class="main__dash-board__${
       type == "income" ? "income" : "expenses"
     }__container">
-    <div class="main__dash-board__${
+    <div type='${type}' category='${category}' class="main__dash-board__${
       type == "income" ? "income" : "expenses"
     }__container__img"><img ${fn1} alt="" /></div>
-    <div class="main__dash-board__${
+    <div type='${type}' category='${category}' class="main__dash-board__${
       type == "income" ? "income" : "expenses"
     }__container-description">
-        <div id="dash-board-title" class="main__dash-board__${
-          type == "income" ? "income" : "expenses"
-        }__container-description__title">${fn2}</div>
+        <div type='${type}' category='${category}' id="dash-board-title" class="main__dash-board__${
+      type == "income" ? "income" : "expenses"
+    }__container-description__title">${fn2}</div>
         <div type='${type}' category-number='${category}' id="dash-board-number" class="main__dash-board__${
       type == "income" ? "income" : "expenses"
     }__container-description__number">${fn3}</div>
-        <div class="main__dash-board__${
-          type == "income" ? "income" : "expenses"
-        }__container-description__time">${fn4}</div>
+        <div type='${type}' category='${category}' class="main__dash-board__${
+      type == "income" ? "income" : "expenses"
+    }__container-description__time">${fn4}</div>
     </div>
     </div>
     <button id='delete' onclick="deleteDashBoard(this)"><i class="fas fa-trash-alt"></i></button>
@@ -819,8 +550,10 @@ const renderImg = (innerText) => {
     case "other":
       return 'src="./assets/images/other.png" alt=""';
 
-    default:
+    case "shopping":
       return 'src="./assets/images/shopping.png" alt=""';
+    default:
+      return 'src="./assets/images/other.png" alt=""';
   }
 };
 
