@@ -70,10 +70,19 @@ categoryCreateBtn.addEventListener("click", () => {
 
 const handleCreateCategory = () => {
   const title = categoryTitleInput.value;
-  renderCategory(title, categoryContainer);
-  console.log("sss");
-  const newSelector = $$(".main__category__selector__child");
-  const newSelectorHeadings = $$(".main__category__selector__child h1");
+  let newSelector = $$(".main__category__selector__child");
+
+  let newSelectorHeadings = $$(".main__category__selector__child h1");
+
+  console.log(newSelectorHeadings);
+
+  if (Array.from(newSelectorHeadings).some((e) => e.innerHTML === title)) {
+    alert("This category had been added !");
+  } else {
+    renderCategory(title, categoryContainer);
+  }
+  newSelector = $$(".main__category__selector__child");
+  newSelectorHeadings = $$(".main__category__selector__child h1");
   Array.from(newSelector)
     .slice(0, newSelector.length - 1)
     .forEach((e, i) => {
