@@ -91,6 +91,7 @@ const handleCreateCategory = () => {
         modalBoardTitle.innerHTML = `Create new: <span>${newSelectorHeadings[i].innerHTML}</span>`;
       });
     });
+
   scrollHandle("right");
   handleCategoryClose();
 };
@@ -398,6 +399,9 @@ const handleSubmit = () => {
 const renderPopupBoard = (e, popupModalData) => {
   const category = e.target.parentNode.getAttribute("category");
   const type = e.target.parentNode.getAttribute("type");
+
+  console.log(category, type);
+
   const newData = ENTRY__DATA.filter((e) => {
     return e.category == category && e.type == type;
   });
@@ -574,7 +578,7 @@ const renderTitle = (condition, modalTitle) => {
 };
 
 const renderAmount = (type, amount) => {
-  let number = `<span>${type == "expenses" ? "-$" : "$"}${amount} </span>`;
+  let number = `${type == "expenses" ? "-$" : "$"}${amount}`;
   return number;
 };
 
