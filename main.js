@@ -1,3 +1,5 @@
+// "use strict";1
+
 const $ = document.querySelector.bind(document);
 const $$ = document.querySelectorAll.bind(document);
 
@@ -176,10 +178,10 @@ const handleSubmit = () => {
     ".main__dash-board__expenses__container-description__title span"
   );
   const dashboardIncomeNumber = $$(
-    ".main__dash-board__income__container-description__number span"
+    ".main__dash-board__income__container-description__number"
   );
   const dashboardExpensesNumber = $$(
-    ".main__dash-board__expenses__container-description__number span"
+    ".main__dash-board__expenses__container-description__number"
   );
 
   let days = ["Sun", "Mon", "Tue", "Wed", "Thur", "Fri", "Sat"];
